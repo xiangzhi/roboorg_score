@@ -124,7 +124,7 @@ app.get('/', function (req, res) {
                 } 
             }
             if(count >= 4){
-                console.log(block)
+                //console.log(block)
                 return block.fn(this)
             }
         },
@@ -194,8 +194,8 @@ app.post('/add', function(req, res){
 
     //now we rerank the team_info
     standing = calculate_winner(team_info)
-    console.log(standing)
-    res.redirect('/add_done')
+    //console.log(standing)
+    res.redirect('add_done')
     //res.end('success')
 })  
 
