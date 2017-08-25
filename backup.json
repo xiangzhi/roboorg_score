@@ -1,0 +1,1 @@
+{"A":{"name":"A","distance":50,"done":false,"time":5,"completed":0,"course":["C","","",""]},"B":{"name":"B","distance":1000,"done":false,"time":1000,"completed":0,"course":["","","","C"]},"F":{"name":"F","distance":400,"done":false,"time":500,"completed":0,"course":["","","","C"]},"C":{"name":"C","distance":400,"done":false,"time":500,"completed":0,"course":["","","F",""]}}

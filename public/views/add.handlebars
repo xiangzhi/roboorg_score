@@ -1,0 +1,37 @@
+
+<h1>Enter Result</h1>
+<form method='post'>
+  <div class="form-group">
+    <label for="team_information">Team</label>
+    <select class='form-control' id='team' name='team'>
+        {{#each team}}
+        <option>{{this}}</option>
+        {{/each}}
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="course_info">Course</label>
+    <select class='form-control' id='course' name='course'>
+        {{#each course}}
+        <option>{{this}}</option>
+        {{/each}}
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="course_info">Status</label>
+    <select class='form-control' id='status' name='status'>
+        <option>Complete</option>
+        <option>Failed</option>
+        <option>Not Played</option>
+    </select>
+  </div>
+ <div class="form-group">
+    <label for="Time">Time</label>
+    <input type="text" class="form-control" id="form_time", name="time">
+  </div>
+ <div class="form-group">
+    <label for="exampleInputName2">Distance</label>
+    <input type="text" class="form-control" id="form_distance" name="distance">
+  </div>
+    <button>Submit</button>
+</form>

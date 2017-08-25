@@ -1,0 +1,29 @@
+
+<h2>Latest Ranking</h2>
+Note: C -- complete, I -- Incomplete
+<table class="table">
+    <thead>
+        <tr>
+        <th>Rank</th>
+        <th>Name</th>
+        <th>Course #1</th>
+        <th>Course #2</th>
+        <th>Course #3</th>
+        <th>Course #4</th>
+        <th>Total Time</th>
+        <th>Total Distance</th>
+        </tr>
+    </thead>
+{{#each standing}}
+<tr>
+    <th>{{inc @index}}</th>
+    <th>{{this.name}}</th>
+    {{#each this.course}}
+    <th>{{this}}</th>            
+    {{/each}}
+    <th>{{this.time}}</th>
+    <th>{{this.distance}}</th>
+</tr>
+{{/each}}
+
+</table>
