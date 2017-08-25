@@ -204,7 +204,8 @@ app.get('/add', function (req, res) {
 });
 
 app.get('/add_done',function(req, res){
-    res.redirect('/add')
+    res.render('add_done')
+    //res.redirect('/add')
 })
 
 app.get('/test', function(req, res){
