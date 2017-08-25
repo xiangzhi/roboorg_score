@@ -1,6 +1,8 @@
-
+<h1>RI Open 2017</h1>
 <h2>Latest Ranking</h2>
 Note: C -- complete, I -- Incomplete
+<br>
+Last update:<em>{{time}}</em>
 <table class="table">
     <thead>
         <tr>
@@ -10,20 +12,28 @@ Note: C -- complete, I -- Incomplete
         <th>Course #2</th>
         <th>Course #3</th>
         <th>Course #4</th>
+        <th>Difficulty Score</th>
         <th>Total Time</th>
         <th>Total Distance</th>
         </tr>
     </thead>
 {{#each standing}}
-<tr>
-    <th>{{inc @index}}</th>
+<tr {{#complete this.course}}class='success'{{/complete}}>
+    <th>{{inc @index}}
+<i class="{{trophy @index}}" style="{{trophy_color @index}}" aria-hidden="true"></i>        
+    </th>
     <th>{{this.name}}</th>
     {{#each this.course}}
     <th>{{this}}</th>            
     {{/each}}
+    <th>{{this.diff_score}}
     <th>{{this.time}}</th>
     <th>{{this.distance}}</th>
 </tr>
 {{/each}}
 
 </table>
+
+<script type="text/javascript">
+  var timeout = setTimeout("location.reload(true);",10000);
+</script>

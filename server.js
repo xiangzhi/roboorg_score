@@ -9,9 +9,9 @@ app.set('views','public/views')
 app.engine('handlebars', exphbs({layoutsDir:'public/views/', defaultLayout: 'main.handlebars'}));
 app.set('view engine', 'handlebars');
 
-team_list = ['A','B','C','D','E','F','G','H','I']
+team_list = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','Rho']
 course_list = ['1','2','3','4']
-difficulty_list = [1,2,4,6]
+difficulty_list = [1,2,3,4]
 // standing = [
 //     {
 //         'name':'A',
@@ -33,8 +33,8 @@ standing = []
 
 function count_complete(arr){
     var count = 0
-    for(var element in arr){
-        if(arr == 'C'){
+    for(var i = 0; i < arr.length; i++){
+        if(arr[i] == 'C'){
             count += 1
         }
     }
@@ -110,11 +110,42 @@ if(fs.existsSync("backup.json")){
 
 
 app.get('/', function (req, res) {
+    today = new Date();
+    var date = (today.getMonth()+1)+'/'+today.getDate() + '/' + today.getFullYear();
+    var cur_time = " "+ today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
     res.render('score',{'standing':standing,
     helpers:{
-        inc: function(i){return parseInt(i)+1}
-        
-    }
+        inc: function(i){return parseInt(i)+1},
+        complete: function(course, block){
+            count = 0
+            for(var i = 0; i < course.length; i++){
+                if(course[i] != ''){
+                    count += 1
+                } 
+            }
+            if(count >= 4){
+                console.log(block)
+                return block.fn(this)
+            }
+        },
+        trophy: function(index){
+            if(index <= 2){
+                return 'fa fa-trophy'
+            }
+        },
+        trophy_color: function(index){
+            if(index == 0){
+                return 'font-size:24px;color:gold'
+            }
+            else if(index == 1){
+                return 'font-size:20px;color:silver'
+            }
+            else{
+                return 'font-size:16px;color:bronze'
+            }
+        }
+    },
+    time:(date + cur_time)
     });
 });
 
@@ -130,6 +161,7 @@ app.post('/add', function(req, res){
             'done':false,
             'time':0,
             'completed':0,
+            'diff_score':0,
             'course':['','','','']
         }
     }
@@ -138,16 +170,24 @@ app.post('/add', function(req, res){
     course_number = parseInt(req.body.course) - 1
     course_status = req.body.status
     if(course_status == 'Complete'){
-        course_status = 'C'
+        course_status = 'C'        
     }
     else if(course_status == 'Failed'){
         course_status = 'I'
     }
     else{
+        course_status = ''
     }
+
+    req.body.time = (isNaN(parseFloat(req.body.time)))?0:parseFloat(req.body.time) 
+    req.body.distance = (isNaN(parseFloat(req.body.distance)))?0:parseFloat(req.body.distance) 
+    
     team_info[team_name].course[course_number] = course_status
-    team_info[team_name].time += parseFloat(req.body.time)
-    team_info[team_name].distance += parseFloat(req.body.distance)
+    team_info[team_name].time += req.body.time
+    team_info[team_name].distance += req.body.distance
+
+    //count diff score
+    team_info[team_name].diff_score = count_difficulty_score(team_info[team_name].course)
 
     //save info if crash
     fs.writeFileSync('backup.json',JSON.stringify(team_info))
@@ -155,13 +195,17 @@ app.post('/add', function(req, res){
     //now we rerank the team_info
     standing = calculate_winner(team_info)
     console.log(standing)
-    res.end('success')
+    res.redirect('/add_done')
+    //res.end('success')
 })  
 
 app.get('/add', function (req, res) {
     res.render('add',{'team':team_list,'course':course_list});
 });
 
+app.get('/add_done',function(req, res){
+    res.redirect('/add')
+})
 
 app.get('/test', function(req, res){
     res.end("test");
