@@ -9,9 +9,11 @@ app.set('views','public/views')
 app.engine('handlebars', exphbs({layoutsDir:'public/views/', defaultLayout: 'main.handlebars'}));
 app.set('view engine', 'handlebars');
 
-team_list = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','Rho']
+team_list = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T']
 course_list = ['1','2','3','4']
 difficulty_list = [1,2,3,4]
+passkey = "testkey"
+
 // standing = [
 //     {
 //         'name':'A',
@@ -151,6 +153,12 @@ app.get('/', function (req, res) {
 
 app.post('/add', function(req, res){
 
+    //check if the pass key is correct
+    if(req.body.passkey != passkey){
+        //invalid entry
+        res.redirect('error')
+    }
+
     team_name = req.body.team
     //never seen team, add
     if(!(team_name in team_info)){
@@ -206,6 +214,10 @@ app.get('/add', function (req, res) {
 app.get('/add_done',function(req, res){
     res.render('add_done')
     //res.redirect('/add')
+})
+
+app.get('/error', function(req, res){
+    res.end('Invalid Error')
 })
 
 app.get('/test', function(req, res){

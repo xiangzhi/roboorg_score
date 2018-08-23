@@ -2,6 +2,7 @@
 <h2>Latest Ranking</h2>
 Note: C -- complete, I -- Incomplete
 <br>
+<h5>View this website at <span id="addr"></span></h5>
 Last update:<em>{{time}}</em>
 <table class="table">
     <thead>
@@ -35,5 +36,6 @@ Last update:<em>{{time}}</em>
 </table>
 
 <script type="text/javascript">
+  document.getElementById("addr").innerHTML = "http://" + window.location.hostname;
   var timeout = setTimeout("location.reload(true);",10000);
 </script>
